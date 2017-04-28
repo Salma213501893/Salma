@@ -1,0 +1,65 @@
+#Question 3
+
+import numpy 
+
+points=[10,30,100,300,1000]
+x0=0
+x1=numpy.pi/2
+#
+
+for n in points:
+    x=numpy.linspace(x0,x1,n)
+    y=numpy.cos(x)
+    total=numpy.sum(y)*(x1-x0)/n
+    error = 1-total 
+    
+    from math import log
+    alpha=log(error)/log(n)
+
+    print 'integral is = ' + repr(total) + ' with n=' + repr(n) + ' with error = ' + repr(error) + ' and alpha = ' + repr(alpha)
+    
+    
+#Question 4
+
+# odd points from an array
+x=numpy.arange(0,100,1) 
+print x[1::2]    
+
+# even points from an array, skipping 1st and last points
+print x[2::2]
+
+#Question 5
+
+from math import cos, pi
+
+def Simpson(f, a, b, n):
+    
+    	h = (b - a)/float(n)
+    	sum1 = 0
+    	for i in range(1, n/2 + 1):
+        	sum1 += f(a + (2*i - 1)*h)
+    	sum1 *= 4
+    	sum2 = 0
+    	for i in range(1, n/2): 
+        	sum2 += f(a + 2*i*h)
+    	sum2 *= 2
+    	approx = (b - a)/(3.0*n)*(f(a) + f(b) + sum1 + sum2)
+    	return approx
+
+
+def f(x):
+    return cos(x)
+
+print "Simpson approximation of cos(x):"
+for n in 10,30,100,300,1000:
+	print 'For n=%g:   approx=%f,   error~%E' % \
+    (n, Simpson(f, 0, pi/2, n), 1 - Simpson(f, 0, pi/2, n)) 
+
+    
+    
+#from math import log
+#error = 1-approx
+#alpha=log(error)/log(n)    
+    
+print 'For n=%g:   approx=%f,   error~%E' % \
+    (n, Simpson(f, 0, pi/2, n), 1 - Simpson(f, 0, pi/2, n)) 
